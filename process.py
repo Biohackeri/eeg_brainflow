@@ -3,20 +3,22 @@ import glob
 files = glob.glob("Recordings\*")
 
 for file_name in files:
-    f = open(file_name+'.fil', "w")
+    out_file_name = "Filter\\"+file_name.split('\\')[1]
+    
+    f = open(out_file_name+'.fil', "w")
 
     with open(file_name) as file:
+        #remove OPENBCI GUI header
         for _ in range(5):
             file.readline()
         
+        # format to tabbed space
+        # removed formatted timestamp at the end
+        # add new line
         for line in file:
-            #print(line.split())
-            #print(len(line.split()))
             out = '\t'.join(line.split(',')[:-1])+'\n'
-            #print(out.split())
-            #print(len(out.split()))
             f.write(out)
 
-            
     f.close()
+    
 
